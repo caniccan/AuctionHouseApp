@@ -3,9 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products", "Products", "{DA162E33-7A65-4A38-A7BB-6EAC1744139D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionHouse.Products", "AuctionHouse.Products\AuctionHouse.Products.csproj", "{F1859600-FBDA-4D18-A8CC-10D6018242C1}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1859600-FBDA-4D18-A8CC-10D6018242C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1859600-FBDA-4D18-A8CC-10D6018242C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1859600-FBDA-4D18-A8CC-10D6018242C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1859600-FBDA-4D18-A8CC-10D6018242C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F1859600-FBDA-4D18-A8CC-10D6018242C1} = {DA162E33-7A65-4A38-A7BB-6EAC1744139D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2C8E77C-558C-4B83-9E89-4FFA66995A79}
