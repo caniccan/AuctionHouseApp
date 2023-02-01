@@ -2,11 +2,9 @@
 
 namespace AuctionHouse.Products.Controllers
 {
-    public class ProductController : Controller
+    [Route("api/v1/[controller]")]
+    public class ProductController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
     }
 }
