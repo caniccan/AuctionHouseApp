@@ -1,3 +1,5 @@
+using AuctionHouse.Products.Data;
+using AuctionHouse.Products.Data.Interfaces;
 using AuctionHouse.Products.Settings;
 using Microsoft.Extensions.Options;
 
@@ -12,7 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.Configure<ProductDatabaseSettings>(builder.Configuration.GetSection(nameof(ProductDatabaseSettings)));
 builder.Services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<IProductContext, ProductContext>();
+
+//builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
