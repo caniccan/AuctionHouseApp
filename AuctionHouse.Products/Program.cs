@@ -1,5 +1,7 @@
 using AuctionHouse.Products.Data;
 using AuctionHouse.Products.Data.Interfaces;
+using AuctionHouse.Products.Repositories;
+using AuctionHouse.Products.Repositories.Interfaces;
 using AuctionHouse.Products.Settings;
 using Microsoft.Extensions.Options;
 
@@ -15,6 +17,8 @@ builder.Services.Configure<ProductDatabaseSettings>(builder.Configuration.GetSec
 builder.Services.AddSingleton<IProductDatabaseSettings>(sp => sp.GetRequiredService<IOptions<ProductDatabaseSettings>>().Value);
 
 builder.Services.AddTransient<IProductContext, ProductContext>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+
 
 //builder.Services.AddSwaggerGen();
 
