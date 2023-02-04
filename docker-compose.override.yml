@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  auctionhousemongodb:
+    container_name: auctionhousemongodb
+    restart: always
+    volumes:
+       - ${WEBAPP_STORAGE_HOME}/site:/data/db
+    ports:
+       - "27017:27017" 
+  auctionhouse.products:
+    container_name: auctionhouseproducts
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ProductDatabaseSettings:ConnectionStrings=mongodb://auctionhousemongodb:27017"
+    ports:
+      - "8000:80"
+    volumes:
+      - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
+      - ${HOME}/ASP.NET/Http:/root/.aspnet/http/

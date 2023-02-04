@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  auctionhousemongodb:
+    image: mongo
+  auctionhouse.products:
+    image: ${DOCKER_REGISTRY-}auctionhouseproducts
+    build:
+      context: .
+      dockerfile: AuctionHouse.Products/Dockerfile
