@@ -1,5 +1,7 @@
 using AuctionHouse.Sourcing.Data;
 using AuctionHouse.Sourcing.Data.Interface;
+using AuctionHouse.Sourcing.Repositories;
+using AuctionHouse.Sourcing.Repositories.Interfaces;
 using AuctionHouse.Sourcing.Settings;
 using Microsoft.Extensions.Options;
 
@@ -14,7 +16,10 @@ builder.Services.Configure<SourcingDatabaseSettings>(builder.Configuration.GetSe
 builder.Services.AddSingleton<ISourcingDatabaseSettings>(sp => sp.GetRequiredService<IOptions<SourcingDatabaseSettings>>().Value);
 #endregion
 
+#region Project Dependencies
 builder.Services.AddTransient<ISourcingContext, SourcingContext>();
+builder.Services.AddTransient<IAuctionRepository, AuctionRepository>();
+#endregion
 
 var app = builder.Build();
 
