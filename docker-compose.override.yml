@@ -8,13 +8,30 @@ services:
        - ${WEBAPP_STORAGE_HOME}/site:/data/db
     ports:
        - "27017:27017" 
+
   auctionhouse.products:
     container_name: auctionhouseproducts
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ProductDatabaseSettings:ConnectionStrings=mongodb://auctionhousemongodb:27017"
+    depends_on:
+      - auctionhousemongodb
     ports:
       - "8000:80"
     volumes:
       - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
       - ${HOME}/ASP.NET/Http:/root/.aspnet/http/
+
+  auctionhouse.sourcing:
+    container_name: auctionhousesourcing
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "SourcingDatabaseSettings:ConnectionString=mongodb://auctionhousemongodb:27017"
+    depends_on:
+      - auctionhousemongodb
+    volumes:
+      - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
+      - ${HOME}/ASP.NET/Http:/root/.aspnet/http/
+    ports:
+      - "8001:80"
+

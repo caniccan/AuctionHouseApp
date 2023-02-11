@@ -4,6 +4,7 @@ using AuctionHouse.Sourcing.Repositories;
 using AuctionHouse.Sourcing.Repositories.Interfaces;
 using AuctionHouse.Sourcing.Settings;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,26 @@ builder.Services.AddTransient<IAuctionRepository, AuctionRepository>();
 builder.Services.AddTransient<IBidRepository, BidRepository>();
 #endregion
 
+#region Swagger Dependencies
+builder.Services.AddSwaggerGen(x =>
+{
+
+    x.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "AuctionHouse.Sourcing",
+        Version = "v1"
+    });
+});
+#endregion
+
+
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sourcing API V1"));
+}
 
 // Configure the HTTP request pipeline.
 

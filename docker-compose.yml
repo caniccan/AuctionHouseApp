@@ -8,3 +8,10 @@ services:
     build:
       context: .
       dockerfile: AuctionHouse.Products/Dockerfile
+
+  auctionhouse.sourcing:
+    image: ${DOCKER_REGISTRY-}auctionhousesourcing
+    build:
+      context: .
+      dockerfile: AuctionHouse.Sourcing/Dockerfile
+
