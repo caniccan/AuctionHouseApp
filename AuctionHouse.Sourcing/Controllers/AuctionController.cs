@@ -120,5 +120,28 @@ namespace AuctionHouse.Sourcing.Controllers
             return Accepted();
         }
 
+        [HttpPost("TestEvent")]
+        public ActionResult<OrderCreateEvent> TestEvent()
+        {
+            OrderCreateEvent eventMessage = new OrderCreateEvent();
+            eventMessage.AuctionId = "dummy1";
+            eventMessage.ProductId = "dummy_product_1";
+            eventMessage.Price = 10;
+            eventMessage.Quantity = 100;
+            eventMessage.SellerUserName = "test@test.com";
+
+            try
+            {
+                _eventBus.Publish(EventBusConstants.OrderCreateQueue, eventMessage);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, $"ERROR Publishing integration event: {eventMessage.Id} from Sourcing");
+                throw;
+            }
+
+            return Accepted(eventMessage);
+        }
+
     }
 }
