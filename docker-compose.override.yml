@@ -9,6 +9,13 @@ services:
     ports:
        - "27017:27017" 
 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+       - "5672:5672"
+       - "15672:15672"
+
   auctionhouse.products:
     container_name: auctionhouseproducts
     environment:
@@ -27,8 +34,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "SourcingDatabaseSettings:ConnectionString=mongodb://auctionhousemongodb:27017"
+      - "EventBus:HostName=rabbitmq"
     depends_on:
       - auctionhousemongodb
+      - rabbitmq
     volumes:
       - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
       - ${HOME}/ASP.NET/Http:/root/.aspnet/http/

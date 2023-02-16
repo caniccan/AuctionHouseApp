@@ -3,6 +3,10 @@ version: '3.4'
 services:
   auctionhousemongodb:
     image: mongo
+
+  rabbitmq:
+    image: rabbitmq:3-management
+
   auctionhouse.products:
     image: ${DOCKER_REGISTRY-}auctionhouseproducts
     build:

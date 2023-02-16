@@ -7,6 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["AuctionHouse.Sourcing/AuctionHouse.Sourcing.csproj", "AuctionHouse.Sourcing/"]
+COPY ["EventBusRabbitMQ/EventBusRabbitMQ.csproj", "EventBusRabbitMQ/"]
 RUN dotnet restore "AuctionHouse.Sourcing/AuctionHouse.Sourcing.csproj"
 COPY . .
 WORKDIR "/src/AuctionHouse.Sourcing"
