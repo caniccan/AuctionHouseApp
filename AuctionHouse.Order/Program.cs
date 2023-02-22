@@ -1,4 +1,5 @@
 using AuctionHouse.Order.Extensions;
+using Ordering.Application;
 using Ordering.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+#region Add Infrastructure
+
 builder.Services.AddInfrastructure(builder.Configuration);
+
+#endregion
+
+#region Add Application
+
+builder.Services.AddApplication();
+
+#endregion
 
 var app = builder.Build();
 
