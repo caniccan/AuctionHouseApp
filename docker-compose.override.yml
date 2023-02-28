@@ -7,7 +7,7 @@ services:
     volumes:
        - ${WEBAPP_STORAGE_HOME}/site:/data/db
     ports:
-       - "27017:27017" 
+       - "27017:27017"
 
   rabbitmq:
     container_name: rabbitmq
@@ -15,6 +15,14 @@ services:
     ports:
        - "5672:5672"
        - "15672:15672"
+
+  sourcingsqldb:
+    container_name: sourcingsqldb
+    ports:
+       - "1433:1433"
+    environment:
+       SA_PASSWORD: "Odb12345678"
+       ACCEPT_EULA: "Y"
 
   auctionhouse.products:
     container_name: auctionhouseproducts
