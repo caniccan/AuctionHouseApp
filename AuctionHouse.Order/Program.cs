@@ -55,18 +55,18 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
     }
 
     var retryCount = 5;
-
     if (!string.IsNullOrWhiteSpace(builder.Configuration["EventBus:RetryCount"]))
     {
         retryCount = int.Parse(builder.Configuration["EventBus:RetryCount"]);
     }
 
     return new DefaultRabbitMQPersistentConnection(factory, retryCount, logger);
-
 });
 
 builder.Services.AddSingleton<EventBusOrderCreateConsumer>();
 #endregion
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 

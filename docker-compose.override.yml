@@ -16,8 +16,8 @@ services:
        - "5672:5672"
        - "15672:15672"
 
-  sourcingsqldb:
-    container_name: sourcingsqldb
+  actionhousesqldb:
+    container_name: actionhousesqldb
     ports:
        - "1433:1433"
     environment:
@@ -35,7 +35,7 @@ services:
       - "8000:80"
     volumes:
       - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
-      - ${HOME}/ASP.NET/Http:/root/.aspnet/http/
+      - ${HOME}/ASP.NET/Https:/root/.aspnet/https/
 
   auctionhouse.sourcing:
     container_name: auctionhousesourcing
@@ -48,7 +48,21 @@ services:
       - rabbitmq
     volumes:
       - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
-      - ${HOME}/ASP.NET/Http:/root/.aspnet/http/
+      - ${HOME}/ASP.NET/Https:/root/.aspnet/https/
     ports:
       - "8001:80"
 
+  auctionhouse.order:
+    container_name: auctionhouseorder
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderConnection=Server=actionhousesqldb;Database=OrderDb;User Id=sa;Password=Odb12345678;TrustServerCertificate=True;"
+      - "EventBus:HostName=rabbitmq"
+    depends_on:
+      - actionhousesqldb
+      - rabbitmq
+    ports:
+      - "8002:80"
+    volumes:
+      - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets
+      - ${HOME}/ASP.NET/Https:/root/.aspnet/https/

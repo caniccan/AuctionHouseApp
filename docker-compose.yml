@@ -7,7 +7,7 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
 
-  sourcingsqldb:
+  actionhousesqldb:
     image: mcr.microsoft.com/mssql/server
 
   auctionhouse.products:
@@ -21,4 +21,10 @@ services:
     build:
       context: .
       dockerfile: AuctionHouse.Sourcing/Dockerfile
+
+  auctionhouse.order:
+    image: ${DOCKER_REGISTRY-}auctionhouseorder
+    build:
+      context: .
+      dockerfile: AuctionHouse.Order/Dockerfile
 
