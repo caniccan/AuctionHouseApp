@@ -28,3 +28,9 @@ services:
       context: .
       dockerfile: AuctionHouse.Order/Dockerfile
 
+  auctionhouse.apigateway:
+    image: ${DOCKER_REGISTRY-}auctionhouseapigateway
+    build:
+      context: .
+      dockerfile: AuctionHouse.APIGateway/Dockerfile
+
