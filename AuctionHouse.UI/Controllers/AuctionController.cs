@@ -8,8 +8,25 @@ namespace AuctionHouse.UI.Controllers
     {
         public IActionResult Index()
         {
-            List<AuctionViewModel> viewModelList = new List<AuctionViewModel>();
-            return View(viewModelList);
+            return View(new List<AuctionViewModel>());
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(AuctionViewModel model)
+        {
+            return View(model);
+        }
+
+        public IActionResult Detail()
+        {
+
+            return View();
         }
     }
 }

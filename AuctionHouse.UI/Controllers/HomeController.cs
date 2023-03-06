@@ -27,9 +27,8 @@ namespace AuctionHouse.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginModel, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel loginModel)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(loginModel.Email);
@@ -39,7 +38,7 @@ namespace AuctionHouse.UI.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false);
                     if (result.Succeeded)
                     {
-                        return LocalRedirect(returnUrl);
+                        return RedirectToAction(nameof(Index));
                     }
                     else
                     {
