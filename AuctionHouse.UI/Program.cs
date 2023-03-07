@@ -1,5 +1,9 @@
 using AuctionHouse.Core.Entities;
+using AuctionHouse.Core.Repositories;
+using AuctionHouse.Core.Repositories.Base;
 using AuctionHouse.Infrastructure.Data;
+using AuctionHouse.Infrastructure.Repositories;
+using AuctionHouse.Infrastructure.Repositories.Base;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +18,9 @@ builder.Services.AddIdentity<AppUser, IdentityRole>().AddDefaultTokenProviders()
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc();
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -38,6 +45,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
