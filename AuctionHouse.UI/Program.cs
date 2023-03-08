@@ -4,6 +4,7 @@ using AuctionHouse.Core.Repositories.Base;
 using AuctionHouse.Infrastructure.Data;
 using AuctionHouse.Infrastructure.Repositories;
 using AuctionHouse.Infrastructure.Repositories.Base;
+using AuctionHouse.UI.Clients;
 using AuctionHouse.UI.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -29,6 +30,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath= $"/Home/Logout";
 
 });
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient<ProductClient>();   
 
 var app = builder.Build();
 
