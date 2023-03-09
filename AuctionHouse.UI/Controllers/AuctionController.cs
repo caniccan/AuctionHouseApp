@@ -10,16 +10,23 @@ namespace AuctionHouse.UI.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly ProductClient _productClient;
+        private readonly AuctionClient _auctionClient;
 
-        public AuctionController(IUserRepository userRepository, ProductClient productClient)
+        public AuctionController(IUserRepository userRepository, ProductClient productClient, AuctionClient auctionClient)
         {
             _userRepository = userRepository;
             _productClient = productClient;
+            _auctionClient = auctionClient;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(new List<AuctionViewModel>());
+            var AuctionList = await _auctionClient.GetAuctions();
+            if (AuctionList.IsSuccess)
+            {
+                return View(AuctionList.Data);
+            }
+            return View();
         }
 
         [HttpGet]
@@ -37,8 +44,18 @@ namespace AuctionHouse.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(AuctionViewModel model)
+        public async Task<IActionResult> Create(AuctionViewModel model)
         {
+            model.Id = model.Id ?? string.Empty;
+            model.Status = 1;
+            model.CreatedAt = DateTime.Now;
+            model.IncludedSellers.Add(model.SellerId);
+            var createAuction = await _auctionClient.CreateAuction(model);
+            if (createAuction.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             return View(model);
         }
 

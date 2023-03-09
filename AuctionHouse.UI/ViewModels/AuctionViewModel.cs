@@ -4,7 +4,12 @@ namespace AuctionHouse.UI.ViewModels
 {
     public class AuctionViewModel
     {
-        public int Id { get; set; }
+        public AuctionViewModel()
+        {
+            IncludedSellers = new List<string>();
+        }
+
+        public string? Id { get; set; }
 
         [Required(ErrorMessage ="Please fill Name")]
         public string Name { get; set; }
@@ -25,7 +30,7 @@ namespace AuctionHouse.UI.ViewModels
         public DateTime FinishedAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public int Status { get; set; }
-        public int SellerId { get; set; }
+        public string SellerId { get; set; }
         public List<string> IncludedSellers { get; set; }
     }
 }

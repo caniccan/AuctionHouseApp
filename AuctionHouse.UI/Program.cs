@@ -33,7 +33,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddHttpClient();
 
-builder.Services.AddHttpClient<ProductClient>();   
+builder.Services.AddHttpClient<ProductClient>();
+builder.Services.AddHttpClient<AuctionClient>();
 
 var app = builder.Build();
 
