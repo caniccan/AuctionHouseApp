@@ -5,15 +5,30 @@ using MongoDB.Driver;
 
 namespace AuctionHouse.Sourcing.Repositories
 {
+    /// <summary>
+    /// BidRepository
+    /// </summary>
     public class BidRepository : IBidRepository
     {
+        /// <summary>
+        /// SourcingContext
+        /// </summary>
         private readonly ISourcingContext _context;
 
+        /// <summary>
+        /// BidRepository Constructor
+        /// </summary>
+        /// <param name="context"></param>
         public BidRepository(ISourcingContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// GetBidsByAuctionId Constructor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<List<Bid>> GetBidsByAuctionId(string id)
         {
             FilterDefinition<Bid> filter = Builders<Bid>.Filter.Eq(x => x.AuctionId, id);
@@ -31,6 +46,11 @@ namespace AuctionHouse.Sourcing.Repositories
             return bids;
         }
 
+        /// <summary>
+        /// GetWinnerBid
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Bid> GetWinnerBid(string id)
         {
             List<Bid> bids=await GetBidsByAuctionId(id);
@@ -39,6 +59,11 @@ namespace AuctionHouse.Sourcing.Repositories
 
         }
 
+        /// <summary>
+        /// SendBid
+        /// </summary>
+        /// <param name="bid"></param>
+        /// <returns></returns>
         public async Task SendBid(Bid bid)
         {
             await _context.Bids.InsertOneAsync(bid);

@@ -3,17 +3,28 @@ using MongoDB.Driver;
 
 namespace AuctionHouse.Products.Data
 {
+    /// <summary>
+    /// ProductContextSeed
+    /// </summary>
     public class ProductContextSeed
     {
+        /// <summary>
+        /// Adds seed data.
+        /// </summary>
+        /// <param name="productColleciton"></param>
         public static void SeedData(IMongoCollection<Product> productColleciton)
         {
             bool existProduct=productColleciton.Find(p=>true).Any();
-            if (!existProduct) 
+            if (!existProduct)
             {
                 productColleciton.InsertManyAsync(GetConfigureProducts());
             }
         }
 
+        /// <summary>
+        /// GetConfigureProducts
+        /// </summary>
+        /// <returns></returns>
         private static IEnumerable<Product> GetConfigureProducts()
         {
             return new List<Product>()

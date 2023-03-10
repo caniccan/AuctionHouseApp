@@ -14,19 +14,24 @@ using System.Threading.Tasks;
 
 namespace Ordering.Infrastructure
 {
+    /// <summary>
+    /// DependencyInjection
+    /// </summary>
     public static class DependencyInjection
     {
+        /// <summary>
+        /// Infrastructure Injections
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddDbContext<OrderContext>(options => options.UseInMemoryDatabase(databaseName: "InMemoryDb"), ServiceLifetime.Singleton, ServiceLifetime.Singleton);
-
             services.AddDbContext<OrderContext>(options =>
                     options.UseSqlServer(
                         configuration.GetConnectionString("OrderConnection"),
                         b => b.MigrationsAssembly(typeof(OrderContext).Assembly.FullName)), ServiceLifetime.Singleton);
 
-
-            //Add Repositories
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IOrderRepository, OrderRepository>();
 

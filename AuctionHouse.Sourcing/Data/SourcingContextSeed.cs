@@ -3,8 +3,15 @@ using MongoDB.Driver;
 
 namespace AuctionHouse.Sourcing.Data
 {
+    /// <summary>
+    /// SourcingContextSeed
+    /// </summary>
     public class SourcingContextSeed
     {
+        /// <summary>
+        /// Adds seed data
+        /// </summary>
+        /// <param name="auctionCollection"></param>
         public static void SeedData(IMongoCollection<Auction> auctionCollection)
         {
             bool exist=auctionCollection.Find(p=>true).Any();
@@ -14,6 +21,10 @@ namespace AuctionHouse.Sourcing.Data
             }
         }
 
+        /// <summary>
+        /// GetPreconfiguredAuctions
+        /// </summary>
+        /// <returns></returns>
         private static IEnumerable<Auction> GetPreconfiguredAuctions()
         {
             return new List<Auction>()

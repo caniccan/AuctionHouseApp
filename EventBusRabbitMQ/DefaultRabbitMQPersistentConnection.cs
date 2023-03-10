@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace EventBusRabbitMQ
 {
+    /// <summary>
+    /// DefaultRabbitMQPersistentConnection
+    /// </summary>
     public class DefaultRabbitMQPersistentConnection : IRabbitMQPersistentConnection
     {
         private readonly IConnectionFactory _connectionFactory;
@@ -21,6 +24,12 @@ namespace EventBusRabbitMQ
         private readonly ILogger<DefaultRabbitMQPersistentConnection> _logger;
         private bool _disposed;
 
+        /// <summary>
+        /// DefaultRabbitMQPersistentConnection Constructor
+        /// </summary>
+        /// <param name="connectionFactory"></param>
+        /// <param name="retryCount"></param>
+        /// <param name="logger"></param>
         public DefaultRabbitMQPersistentConnection(IConnectionFactory connectionFactory, int retryCount, ILogger<DefaultRabbitMQPersistentConnection> logger)
         {
             _connectionFactory = connectionFactory;
@@ -28,14 +37,20 @@ namespace EventBusRabbitMQ
             _logger = logger;
         }
 
+        /// <summary>
+        /// gets the IsConnected
+        /// </summary>
         public bool IsConnected
         {
-            get 
+            get
             {
-                return _connection != null && _connection.IsOpen && !_disposed; 
+                return _connection != null && _connection.IsOpen && !_disposed;
             }
         }
 
+        /// <summary>
+        /// TryConnect
+        /// </summary>
         public bool TryConnect()
         {
             _logger.LogInformation("RabbitMQ Client is trying to connect");
@@ -69,6 +84,11 @@ namespace EventBusRabbitMQ
             }
         }
 
+        /// <summary>
+        /// OnConnectionBlocked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnConnectionBlocked(object sender, ConnectionBlockedEventArgs e)
         {
             if (_disposed) return;
@@ -78,6 +98,11 @@ namespace EventBusRabbitMQ
             TryConnect();
         }
 
+        /// <summary>
+        /// OnCallbackException
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnCallbackException(object sender, CallbackExceptionEventArgs e)
         {
             if (_disposed) return;
@@ -87,6 +112,11 @@ namespace EventBusRabbitMQ
             TryConnect();
         }
 
+        /// <summary>
+        /// OnConnectionShutdown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="reason"></param>
         private void OnConnectionShutdown(object sender, ShutdownEventArgs reason)
         {
             if(_disposed) return;
@@ -96,7 +126,11 @@ namespace EventBusRabbitMQ
             TryConnect();
         }
 
-
+        /// <summary>
+        /// CreateModel
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public IModel CreateModel()
         {
             if (!IsConnected)
@@ -107,10 +141,13 @@ namespace EventBusRabbitMQ
             return _connection.CreateModel();
         }
 
+        /// <summary>
+        /// Dispose connection
+        /// </summary>
         public void Dispose()
         {
             if (_disposed) return;
-            
+
             _disposed = true;
 
             try
@@ -122,6 +159,5 @@ namespace EventBusRabbitMQ
                 _logger.LogCritical(ex.ToString());
             }
         }
-
     }
 }

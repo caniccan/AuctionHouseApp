@@ -3,8 +3,16 @@ using Ordering.Infrastructure.Data;
 
 namespace AuctionHouse.Order.Extensions
 {
+    /// <summary>
+    /// MigrationManager
+    /// </summary>
     public static class MigrationManager
     {
+        /// <summary>
+        /// Database Migration
+        /// </summary>
+        /// <param name="host"></param>
+        /// <returns></returns>
         public static IHost MigrateDatabase(this IHost host)
         {
             using (var scope = host.Services.CreateScope())
@@ -22,11 +30,9 @@ namespace AuctionHouse.Order.Extensions
                 }
                 catch (Exception exception)
                 {
-
                     throw;
                 }
             }
-
             return host;
         }
     }

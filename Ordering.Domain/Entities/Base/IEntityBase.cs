@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Entities.Base
 {
+    /// <summary>
+    /// IEntityBase
+    /// </summary>
     public interface IEntityBase
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         int Id { get; }
     }
 }

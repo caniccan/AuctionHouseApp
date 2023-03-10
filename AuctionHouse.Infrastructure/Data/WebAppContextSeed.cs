@@ -9,8 +9,18 @@ using System.Threading.Tasks;
 
 namespace AuctionHouse.Infrastructure.Data
 {
+    /// <summary>
+    /// WebAppContextSeed
+    /// </summary>
     public class WebAppContextSeed
     {
+        /// <summary>
+        /// Adds seed data
+        /// </summary>
+        /// <param name="webAppContext"></param>
+        /// <param name="loggerFactory"></param>
+        /// <param name="retry"></param>
+        /// <returns></returns>
         public static async Task SeedAsync(WebAppContext webAppContext, ILoggerFactory loggerFactory, int? retry=0)
         {
             int retryForAvailability = retry.Value;
@@ -37,6 +47,10 @@ namespace AuctionHouse.Infrastructure.Data
             }
         }
 
+        /// <summary>
+        /// GetPreconfiguredOrders
+        /// </summary>
+        /// <returns></returns>
         private static IEnumerable<AppUser> GetPreconfiguredOrders()
         {
             return new List<AppUser>()

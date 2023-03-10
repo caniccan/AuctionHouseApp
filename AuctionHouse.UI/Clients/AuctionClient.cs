@@ -6,16 +6,30 @@ using System.Net.Http.Headers;
 
 namespace AuctionHouse.UI.Clients
 {
+    /// <summary>
+    /// AuctionClient
+    /// </summary>
     public class AuctionClient
     {
+        /// <summary>
+        /// Client
+        /// </summary>
         public HttpClient _client { get; }
 
+        /// <summary>
+        /// AuctionClient Constructor
+        /// </summary>
+        /// <param name="client"></param>
         public AuctionClient(HttpClient client)
         {
             _client = client;
             _client.BaseAddress = new Uri(CommonInfo.LocalAuctionBaseAddress);
         }
 
+        /// <summary>
+        /// GetAuctions
+        /// </summary>
+        /// <returns></returns>
         public async Task<Result<List<AuctionViewModel>>> GetAuctions()
         {
             var response = await _client.GetAsync("/api/v1/Auction");
@@ -31,6 +45,11 @@ namespace AuctionHouse.UI.Clients
             return new Result<List<AuctionViewModel>>(false, ResultConstant.RecordNotFound);
         }
 
+        /// <summary>
+        /// CreateAuction
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<Result<AuctionViewModel>> CreateAuction(AuctionViewModel model)
         {
             var dataAsString = JsonConvert.SerializeObject(model);

@@ -7,17 +7,29 @@ using System.Threading.Tasks;
 
 namespace Ordering.Infrastructure.Data
 {
+    /// <summary>
+    /// OrderContextSeed
+    /// </summary>
     public class OrderContextSeed
     {
+        /// <summary>
+        /// Adds seed data
+        /// </summary>
+        /// <param name="orderContext"></param>
+        /// <returns></returns>
         public static async Task SeedAsync(OrderContext orderContext)
         {
-            if (!orderContext.Orders.Any()) 
+            if (!orderContext.Orders.Any())
             {
                 orderContext.Orders.AddRange(GetPreconfiguredOrders());
                 await orderContext.SaveChangesAsync();
             }
         }
 
+        /// <summary>
+        /// GetPreconfiguredOrders
+        /// </summary>
+        /// <returns></returns>
         private static IEnumerable<Order> GetPreconfiguredOrders()
         {
             return new List<Order>()

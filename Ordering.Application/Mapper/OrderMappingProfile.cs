@@ -10,8 +10,14 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Mapper
 {
+    /// <summary>
+    /// OrderMappingProfile
+    /// </summary>
     public class OrderMappingProfile : Profile
     {
+        /// <summary>
+        /// OrderMappingProfile Constructor that uses for mapping.
+        /// </summary>
         public OrderMappingProfile()
         {
             CreateMap<Order,OrderCreateCommand>().ReverseMap();

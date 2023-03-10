@@ -11,12 +11,22 @@ using System.Text;
 
 namespace AuctionHouse.Order.Consumers
 {
+    /// <summary>
+    /// EventBusOrderCreateConsumer
+    /// </summary>
     public class EventBusOrderCreateConsumer
     {
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// EventBusOrderCreateConsumer Constructor
+        /// </summary>
+        /// <param name="persistentConnection"></param>
+        /// <param name="mediator"></param>
+        /// <param name="mapper"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public EventBusOrderCreateConsumer(IRabbitMQPersistentConnection persistentConnection, IMediator mediator, IMapper mapper)
         {
             _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
@@ -24,6 +34,9 @@ namespace AuctionHouse.Order.Consumers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        /// <summary>
+        /// Consume
+        /// </summary>
         public void Consume()
         {
             if (!_persistentConnection.IsConnected)
@@ -41,11 +54,19 @@ namespace AuctionHouse.Order.Consumers
             channel.BasicConsume(queue:EventBusConstants.OrderCreateQueue,autoAck:true,consumer:consumer);
         }
 
+        /// <summary>
+        /// Disconnect
+        /// </summary>
         public void Disconnect()
         {
             _persistentConnection?.Dispose();
         }
 
+        /// <summary>
+        /// Forwards the Received Event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ReceivedEvent(object sender, BasicDeliverEventArgs e)
         {
             var message = Encoding.UTF8.GetString(e.Body.Span);

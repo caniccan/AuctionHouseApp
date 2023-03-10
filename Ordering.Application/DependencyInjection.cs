@@ -14,8 +14,16 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application
 {
+    /// <summary>
+    /// DependencyInjection
+    /// </summary>
     public static class DependencyInjection
     {
+        /// <summary>
+        /// Application Injections
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

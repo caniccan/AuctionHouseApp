@@ -2,8 +2,16 @@
 
 namespace AuctionHouse.UI.Extensions
 {
+    /// <summary>
+    /// MigrationManager
+    /// </summary>
     public static class MigrationManager
     {
+        /// <summary>
+        /// Database Migration
+        /// </summary>
+        /// <param name="host"></param>
+        /// <returns></returns>
         public static IHost UseMigrateDatabase(this IHost host)
         {
             using (var scope = host.Services.CreateScope())

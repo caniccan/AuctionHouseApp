@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Repositories
 {
+    /// <summary>
+    /// IOrderRepository
+    /// </summary>
     public interface IOrderRepository :IRepository<Order>
     {
+        /// <summary>
+        /// GetOrdersBySellerUserName
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         Task<IEnumerable<Order>> GetOrdersBySellerUserName(string userName);
     }
 }

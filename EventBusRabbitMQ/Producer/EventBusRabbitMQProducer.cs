@@ -14,12 +14,21 @@ using System.Threading.Tasks;
 
 namespace EventBusRabbitMQ.Producer
 {
+    /// <summary>
+    /// EventBusRabbitMQProducer
+    /// </summary>
     public class EventBusRabbitMQProducer
     {
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQProducer> _logger;
         private readonly int _retryCount;
 
+        /// <summary>
+        /// EventBusRabbitMQProducer Constructor
+        /// </summary>
+        /// <param name="persistentConnection"></param>
+        /// <param name="logger"></param>
+        /// <param name="retryCount"></param>
         public EventBusRabbitMQProducer(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMQProducer> logger, int retryCount=5)
         {
             _persistentConnection = persistentConnection;
@@ -27,6 +36,11 @@ namespace EventBusRabbitMQ.Producer
             _retryCount = retryCount;
         }
 
+        /// <summary>
+        /// Publish Message
+        /// </summary>
+        /// <param name="queueName"></param>
+        /// <param name="event"></param>
         public void Publish(string queueName, IEvent @event)
         {
             if (!_persistentConnection.IsConnected)
@@ -65,7 +79,6 @@ namespace EventBusRabbitMQ.Producer
                     channel.BasicAcks += (sender, eventArgs) =>
                     {
                         Console.WriteLine("Sent RabbitMQ");
-                        //implement ack handle
                     };
                 });
             }

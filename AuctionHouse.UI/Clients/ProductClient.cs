@@ -5,16 +5,30 @@ using Newtonsoft.Json;
 
 namespace AuctionHouse.UI.Clients
 {
+    /// <summary>
+    /// ProductClient
+    /// </summary>
     public class ProductClient
     {
+        /// <summary>
+        /// Client
+        /// </summary>
         public HttpClient _client { get; }
 
+        /// <summary>
+        /// ProductClient Constructor
+        /// </summary>
+        /// <param name="client"></param>
         public ProductClient(HttpClient client)
         {
             _client = client;
             _client.BaseAddress = new Uri(CommonInfo.LocalProductBaseAddress);
         }
 
+        /// <summary>
+        /// GetProducts
+        /// </summary>
+        /// <returns></returns>
         public async Task<Result<List<ProductViewModel>>> GetProducts()
         {
             var response = await _client.GetAsync("/api/v1/Product");

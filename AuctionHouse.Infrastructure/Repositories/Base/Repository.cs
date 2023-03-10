@@ -10,15 +10,31 @@ using System.Threading.Tasks;
 
 namespace AuctionHouse.Infrastructure.Repositories.Base
 {
+    /// <summary>
+    /// Repository
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Repository<T> : IRepository<T> where T : class, new()
     {
+        /// <summary>
+        /// WebAppContext
+        /// </summary>
         protected readonly WebAppContext _dbContext;
 
+        /// <summary>
+        /// Repository Constructor
+        /// </summary>
+        /// <param name="dbContext"></param>
         public Repository(WebAppContext dbContext)
         {
             _dbContext = dbContext;
         }
 
+        /// <summary>
+        /// AddAsync
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task<T> AddAsync(T entity)
         {
             _dbContext.Set<T>().Add(entity);
@@ -26,22 +42,44 @@ namespace AuctionHouse.Infrastructure.Repositories.Base
             return entity;
         }
 
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task DeleteAsync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// GetAllAsync
+        /// </summary>
+        /// <returns></returns>
         public async Task<IReadOnlyList<T>> GetAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
 
+        /// <summary>
+        /// GetAsync
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbContext.Set<T>().Where(predicate).ToListAsync();
         }
 
+        /// <summary>
+        /// GetAsync
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="orderBy"></param>
+        /// <param name="includeString"></param>
+        /// <param name="disableTracking"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, string includeString, bool disableTracking = true)
         {
             IQueryable<T> query = _dbContext.Set<T>();
@@ -57,6 +95,14 @@ namespace AuctionHouse.Infrastructure.Repositories.Base
             return await query.ToListAsync();
         }
 
+        /// <summary>
+        /// GetAsync
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="orderBy"></param>
+        /// <param name="includes"></param>
+        /// <param name="disableTracking"></param>
+        /// <returns></returns>
         public async Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, List<Expression<Func<T, object>>> includes, bool disableTracking = true)
         {
             IQueryable<T> query = _dbContext.Set<T>();
@@ -73,11 +119,21 @@ namespace AuctionHouse.Infrastructure.Repositories.Base
             return await query.ToListAsync();
         }
 
+        /// <summary>
+        /// GetByIdAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<T> GetByIdAsync(int id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
+        /// <summary>
+        /// UpdateAsync
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public async Task UpdateAsync(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;

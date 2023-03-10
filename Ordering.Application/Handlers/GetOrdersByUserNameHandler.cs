@@ -11,24 +11,43 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Handlers
 {
+    /// <summary>
+    /// GetOrdersByUserNameHandler
+    /// </summary>
     public class GetOrdersByUserNameHandler : IRequestHandler<GetOrdersBySellerUserNameQuery, IEnumerable<OrderResponse>>
     {
+        /// <summary>
+        /// OrderRepository
+        /// </summary>
         private readonly IOrderRepository _orderRepository;
+
+        /// <summary>
+        /// Mapper
+        /// </summary>
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// GetOrdersByUserNameHandler Constructor
+        /// </summary>
+        /// <param name="orderRepository"></param>
+        /// <param name="mapper"></param>
         public GetOrdersByUserNameHandler(IOrderRepository orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Handle
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<OrderResponse>> Handle(GetOrdersBySellerUserNameQuery request, CancellationToken cancellationToken)
         {
             var orderList = await _orderRepository.GetOrdersBySellerUserName(request.UserName);
 
-            var response= _mapper.Map<IEnumerable<OrderResponse>>(orderList);
-
-            return response;
+            return _mapper.Map<IEnumerable<OrderResponse>>(orderList);
         }
     }
 }
