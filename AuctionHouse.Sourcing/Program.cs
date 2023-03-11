@@ -1,5 +1,6 @@
 using AuctionHouse.Sourcing.Data;
 using AuctionHouse.Sourcing.Data.Interface;
+using AuctionHouse.Sourcing.Hubs;
 using AuctionHouse.Sourcing.Repositories;
 using AuctionHouse.Sourcing.Repositories.Interfaces;
 using AuctionHouse.Sourcing.Settings;
@@ -74,6 +75,8 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
 builder.Services.AddSingleton<EventBusRabbitMQProducer>();
 #endregion
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -86,6 +89,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
+app.MapHub<AuctionHub>("/auctionhub");
 app.MapControllers();
 
 app.Run();
