@@ -75,6 +75,15 @@ builder.Services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
 builder.Services.AddSingleton<EventBusRabbitMQProducer>();
 #endregion
 
+builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", options =>
+{
+    options.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .WithOrigins("https://localhost:44383");
+}));
+
 builder.Services.AddSignalR();
 
 var app = builder.Build();
@@ -88,6 +97,7 @@ if (app.Environment.IsDevelopment())
 // Configure the HTTP request pipeline.
 
 app.UseAuthorization();
+app.UseCors("CorsPolicy");
 
 app.MapHub<AuctionHub>("/auctionhub");
 app.MapControllers();

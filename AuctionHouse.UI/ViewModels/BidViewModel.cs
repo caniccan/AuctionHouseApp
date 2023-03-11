@@ -1,18 +1,13 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace AuctionHouse.Sourcing.Entities
+﻿namespace AuctionHouse.UI.ViewModels
 {
     /// <summary>
-    /// Bid
+    /// BidViewModel
     /// </summary>
-    public class Bid
+    public class BidViewModel
     {
         /// <summary>
         /// Id
         /// </summary>
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
         /// <summary>

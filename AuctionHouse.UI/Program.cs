@@ -35,6 +35,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddHttpClient<ProductClient>();
 builder.Services.AddHttpClient<AuctionClient>();
+builder.Services.AddHttpClient<BidClient>();
 
 var app = builder.Build();
 

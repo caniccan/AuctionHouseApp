@@ -46,6 +46,26 @@ namespace AuctionHouse.UI.Clients
         }
 
         /// <summary>
+        /// GetAuctionById
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Result<AuctionViewModel>> GetAuctionById(string id)
+        {
+            var response = await _client.GetAsync("/api/v1/Auction/" + id);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseData=await response.Content.ReadAsStringAsync();
+                var result=JsonConvert.DeserializeObject<AuctionViewModel>(responseData);
+                if (!Equals(result,null))
+                {
+                    return new Result<AuctionViewModel>(true, ResultConstant.RecordFound, result);
+                }
+            }
+            return new Result<AuctionViewModel>(false, ResultConstant.RecordNotFound);
+        }
+
+        /// <summary>
         /// CreateAuction
         /// </summary>
         /// <param name="model"></param>
