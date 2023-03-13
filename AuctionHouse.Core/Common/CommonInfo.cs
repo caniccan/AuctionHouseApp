@@ -12,6 +12,11 @@ namespace AuctionHouse.Core.Common
     public static class CommonInfo
     {
         /// <summary>
+        /// BaseAddress
+        /// </summary>
+        public static string BaseAddress = "http://localhost:5000";
+
+        /// <summary>
         /// LocalProductBaseAddress
         /// </summary>
         public static string LocalProductBaseAddress = "http://localhost:8000";

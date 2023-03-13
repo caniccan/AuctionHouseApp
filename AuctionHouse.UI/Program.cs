@@ -19,6 +19,12 @@ builder.Services.AddIdentity<AppUser, IdentityRole>().AddDefaultTokenProviders()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+});
+
 builder.Services.AddRazorPages();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -39,7 +45,6 @@ builder.Services.AddHttpClient<BidClient>();
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -47,6 +52,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSession();
 
 app.UseMigrateDatabase();
 

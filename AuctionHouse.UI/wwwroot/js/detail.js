@@ -34,7 +34,16 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     }
     SendBid(sendBidRequest);
     event.preventDefault();
-})
+});
+
+document.getElementById("finishButton").addEventListener("click", function (event) {
+
+    let sendCompleteBidRequest = {
+        Id: auctionId,
+    }
+    SendCompleteBid(sendCompleteBidRequest);
+    event.preventDefault();
+});
 
 function addBidToTable(user, bid) {
     var str = "<tr>";
@@ -70,3 +79,19 @@ function SendBid(model) {
     });
 }
 
+function SendCompleteBid(model) {
+    $.ajax({
+
+        url: "/Auction/CompleteBid",
+        type: "POST",
+        data: model,
+        success: function (response) {
+            if (response.isSuccess) {
+                console.log("Your auction has been successfully completed.")
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
+}

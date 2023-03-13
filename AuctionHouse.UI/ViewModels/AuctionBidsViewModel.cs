@@ -21,6 +21,11 @@
         public string SellerUserName { get; set; }
 
         /// <summary>
+        /// IsAdmin
+        /// </summary>
+        public bool IsAdmin { get; set; }
+
+        /// <summary>
         /// Bids
         /// </summary>
         public List<BidViewModel> Bids { get; set; }

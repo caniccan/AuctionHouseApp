@@ -26,5 +26,10 @@ namespace AuctionHouse.Core.Entities
         /// IsBuyer
         /// </summary>
         public bool IsBuyer { get; set; }
+
+        /// <summary>
+        /// IsAdmin
+        /// </summary>
+        public bool IsAdmin { get; set; }
     }
 }

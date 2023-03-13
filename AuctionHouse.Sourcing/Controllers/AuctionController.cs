@@ -32,7 +32,7 @@ namespace AuctionHouse.Sourcing.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Auction>),(int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<Auction>>> GetAuctions()
-        { 
+        {
             return Ok(await _auctionRepository.GetAuctions());
         }
 
@@ -63,7 +63,7 @@ namespace AuctionHouse.Sourcing.Controllers
         public async Task<ActionResult<Auction>> UpdateAuction([FromBody] Auction auction)
         {
             return Ok(await _auctionRepository.Update(auction));
-            
+
         }
 
         [HttpDelete("{id:length(24)}")]
@@ -77,7 +77,7 @@ namespace AuctionHouse.Sourcing.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
-        public async Task<ActionResult> CompleteAuction(string id)
+        public async Task<ActionResult> CompleteAuction([FromBody] string id)
         {
             Auction auction = await _auctionRepository.GetAuction(id);
             if (auction.Equals(null))
@@ -92,7 +92,7 @@ namespace AuctionHouse.Sourcing.Controllers
             }
 
             Bid bid = await _bidRepository.GetWinnerBid(id);
-            if (!bid.Equals(null))
+            if (bid.Equals(null))
             {
                 return NotFound();
             }

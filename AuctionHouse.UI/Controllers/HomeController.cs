@@ -38,6 +38,7 @@ namespace AuctionHouse.UI.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, loginModel.Password, false, false);
                     if (result.Succeeded)
                     {
+                        HttpContext.Session.SetString("IsAdmin", user.IsAdmin.ToString());
                         return RedirectToAction(nameof(Index));
                     }
                     else

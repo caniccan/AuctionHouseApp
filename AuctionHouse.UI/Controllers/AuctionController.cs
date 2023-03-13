@@ -50,7 +50,7 @@ namespace AuctionHouse.UI.Controllers
         public async Task<IActionResult> Create(AuctionViewModel model)
         {
             model.Id = model.Id ?? string.Empty;
-            model.Status = 1;
+            model.Status = default(int);
             model.CreatedAt = DateTime.Now;
             model.IncludedSellers.Add(model.SellerId);
             var createAuction = await _auctionClient.CreateAuction(model);
@@ -72,6 +72,8 @@ namespace AuctionHouse.UI.Controllers
             model.AuctionId = auctionResponse.Data.Id;
             model.ProductId= auctionResponse.Data.ProductId;
             model.Bids = bidsResponse.Data;
+            var isAdmin = HttpContext.Session.GetString("IsAdmin");
+            model.IsAdmin = Convert.ToBoolean(isAdmin);
 
             return View(model);
         }
@@ -79,10 +81,16 @@ namespace AuctionHouse.UI.Controllers
         [HttpPost]
         public async Task<Result<string>> SendBid(BidViewModel model)
         {
-            
             model.CreatedAt = DateTime.Now;
             var sendBidResponse = await _bidClient.SendBid(model);
             return sendBidResponse;
+        }
+
+        [HttpPost]
+        public async Task<Result<string>> CompleteBid(string id)
+        {
+            var completeBidResponse = await _auctionClient.CompleteBid(id);
+            return completeBidResponse;
         }
     }
 }

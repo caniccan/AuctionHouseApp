@@ -22,7 +22,7 @@ namespace AuctionHouse.UI.Clients
         public ProductClient(HttpClient client)
         {
             _client = client;
-            _client.BaseAddress = new Uri(CommonInfo.LocalProductBaseAddress);
+            _client.BaseAddress = new Uri(CommonInfo.BaseAddress);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace AuctionHouse.UI.Clients
         /// <returns></returns>
         public async Task<Result<List<ProductViewModel>>> GetProducts()
         {
-            var response = await _client.GetAsync("/api/v1/Product");
+            var response = await _client.GetAsync("/Product");
             if (response.IsSuccessStatusCode)
             {
                 var responseData = await response.Content.ReadAsStringAsync();

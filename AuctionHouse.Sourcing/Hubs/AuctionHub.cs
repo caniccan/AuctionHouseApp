@@ -11,7 +11,7 @@ namespace AuctionHouse.Sourcing.Hubs
 
         public async Task SendBidAsync(string groupName, string user, string bid)
         {
-            await Clients.Group(groupName).SendAsync("Bids",user,bid);
+            await Clients.All.SendAsync("Bids",user,bid);
         }
     }
 }
