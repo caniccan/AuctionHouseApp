@@ -22,7 +22,7 @@ namespace AuctionHouse.UI.Clients
         public BidClient(HttpClient client)
         {
             _client = client;
-            _client.BaseAddress = new Uri(CommonInfo.BaseAddress);
+            _client.BaseAddress = new Uri(CommonInfo.LocalAuctionBaseAddress);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace AuctionHouse.UI.Clients
         /// <returns></returns>
         public async Task<Result<List<BidViewModel>>> GetAllBidsByAuctionId(string id)
         {
-            var response = await _client.GetAsync($"/Bid/GetBidByActionId?id={id}");
+            var response = await _client.GetAsync($"/api/v1/Bid/GetBidByActionId?id={id}");
             if (response.IsSuccessStatusCode)
             {
                 var responseData = await response.Content.ReadAsStringAsync();
@@ -56,7 +56,7 @@ namespace AuctionHouse.UI.Clients
             var dataAsString = JsonConvert.SerializeObject(model);
             var content = new StringContent(dataAsString);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-            var response = await _client.PostAsync("/Bid", content);
+            var response = await _client.PostAsync("/api/v1/Bid", content);
             if (response.IsSuccessStatusCode)
             {
                 var responseData = await response.Content.ReadAsStringAsync();

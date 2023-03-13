@@ -81,7 +81,7 @@ builder.Services.AddCors(x => x.AddPolicy("CorsPolicy", options =>
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials()
-            .WithOrigins("https://localhost:44383");
+            .WithOrigins("https://localhost:7000").SetIsOriginAllowed(_ => true);
 }));
 
 builder.Services.AddSignalR();

@@ -14,7 +14,7 @@ namespace AuctionHouse.Core.Common
         /// <summary>
         /// BaseAddress
         /// </summary>
-        public static string BaseAddress = "http://localhost:5000";
+        public static string BaseAddress = "http://host.docker.internal:5000";
 
         /// <summary>
         /// LocalProductBaseAddress
@@ -24,6 +24,6 @@ namespace AuctionHouse.Core.Common
         /// <summary>
         /// LocalAuctionBaseAddress
         /// </summary>
-        public static string LocalAuctionBaseAddress = "http://localhost:8001";
+        public static string LocalAuctionBaseAddress = "http://host.docker.internal:8001";
     }
 }
